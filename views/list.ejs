@@ -1,12 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do List</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
-    <h1>It's a <%= DayType %></h1>
+
+    <div class="box">
+        <h1>
+            <%= day %>
+        </h1>
+    </div>
+
+    <ul>
+        <% for(let i=0; i < items.length; i++) { %>
+            <li>
+                <%= items[i] %>
+            </li>
+            <% } %>
+    </ul>
+
+    <form action="/" method="post">
+        <input id="newItem" type="text" placeholder="New Item" name="newItem">
+        <button type="submit" name="button">Add</button>
+    </form>
 </body>
+
 </html>
