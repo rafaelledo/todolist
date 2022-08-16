@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded())
 app.use(express.static("public"))
 
 let items = ["Buy Yu-Gi-Oh! cards", "Open the deck", "Play with friends"]
+let games = ["League of Legends", "Genshin Impact", "Dbz Budokai T 3"]
 
 app.get("/", function(req, res) {
     let today = new Date()
@@ -20,9 +21,8 @@ app.get("/", function(req, res) {
 
     let day = today.toLocaleDateString("en-US", options)
 
-
     res.render("list", {
-        day: day,
+        listTitle: day,
         items: items
     })
 })
@@ -30,11 +30,25 @@ app.get("/", function(req, res) {
 app.post("/", (req, res) => {
     const newItem = req.body.newItem
 
-    items.push(newItem)
-
-    res.redirect("/")
+    if (req.body.button === "Games") {
+        games.push(newItem)
+        res.redirect("/games")
+    } else {
+        items.push(newItem)
+        res.redirect("/")
+    }
 })
 
+app.get("/games", (req, res) => {
+    res.render("list", {
+        listTitle: "Games List",
+        items: games
+    })
+})
+
+app.get("/about", (req, res) => {
+    res.render("about")
+})
 
 app.listen(3000, function() {
     console.log("Servert started on port 3000")
