@@ -1,5 +1,6 @@
 const express = require("express")
 const bodyParser = require("body-parser")
+const date = require(__dirname + "/date.js")
 
 const app = express()
 
@@ -7,19 +8,11 @@ app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded())
 app.use(express.static("public"))
 
-let items = ["Buy Yu-Gi-Oh! cards", "Open the deck", "Play with friends"]
-let games = ["League of Legends", "Genshin Impact", "Dbz Budokai T 3"]
+const items = ["Buy Yu-Gi-Oh! cards", "Open the deck", "Play with friends"]
+const games = ["League of Legends", "Genshin Impact", "Dbz Budokai T 3"]
 
 app.get("/", function(req, res) {
-    let today = new Date()
-    
-    let options = {
-        weekday: "long",
-        day: "numeric",
-        month: "long"
-    }
-
-    let day = today.toLocaleDateString("en-US", options)
+    const day = date.getDate()
 
     res.render("list", {
         listTitle: day,
@@ -51,5 +44,5 @@ app.get("/about", (req, res) => {
 })
 
 app.listen(3000, function() {
-    console.log("Servert started on port 3000")
+    console.log("Server started on port 3000")
 })
